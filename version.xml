@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE version SYSTEM "../../../lib/pkp/dtd/pluginVersion.dtd">
+
+<!--
+  * plugins/themes/westernPAHistory/version.xml
+  *
+  * cjw36 - 02 Feb 2026
+  *
+  * Plugin version information.
+  -->
+
+<version>
+	<!-- The application should match the theme folder to ensure it is unique -->
+	<application>westernPAHistory</application>
+
+	<!-- The type should always be `plugins.themes` -->
+	<type>plugins.themes</type>
+
+	<!--
+		The current version. It should always include 4 numbers.
+	    Valid: 1.0.2.3, 0.1.4.0
+		Invalid: 1.0, v1.0.4, 1.0.0.0b
+	-->
+	<release>1.0.0.0</release>
+
+	<!-- The date of the latest version -->
+	<date>2026-02-02</date>
+
+	<!-- This should always be 1 -->
+	<lazy-load>1</lazy-load>
+
+	<!-- The class name of the plugin. See index.php -->
+	<class>westernPAHistoryThemePlugin</class>
+</version>
