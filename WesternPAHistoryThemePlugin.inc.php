@@ -16,16 +16,16 @@ class WesternPAHistoryThemePlugin extends ThemePlugin {
 	 *
 	 * @return null
 	 */
-	public function init() {
+	public function init(): void {
 		$this->setParent('healthsciencesthemeplugin');
-		$this->modifyStyle('stylesheet', array('addLess' => array('styles/westernPAHistory.css')));
+		$this->addStyle('westernPAHistory', 'styles/westernPAHistory.css');
 	}
 
 	/**
 	 * Get the display name of this plugin
 	 * @return string
 	 */
-	function getDisplayName() {
+	function getDisplayName(): string {
 		return 'Western PA History';
 	}
 
@@ -33,8 +33,8 @@ class WesternPAHistoryThemePlugin extends ThemePlugin {
 	 * Get the description of this plugin
 	 * @return string
 	 */
-	function getDescription() {
-		return 'A child of the Health Sciences theme providing custom layout and styling for the Western PA History journal.';
+	function getDescription(): string {
+		return 'A child of the Health Sciences Theme providing custom layout and styling for the Western PA History journal.';
 	}
 }
 
