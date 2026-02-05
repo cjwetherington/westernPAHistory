@@ -4,5 +4,19 @@
  * cjw36 02 Feb 2026
  * ############################################# */
 
-/* test rule */
-/* * {background-color: green;} */
+/* Adjust parent rule to account for added `main` region */
+@media (min-width: 1200px) {
+  .homepage-image-behind-issue + main .container-homepage-issue .homepage-issue-current,
+  .homepage-image-behind-issue + main .container-homepage-issue .homepage-issue-identifier,
+  .homepage-image-behind-issue + main .container-homepage-issue .homepage-issue-published {
+    color: #fff;
+    text-shadow: 0 0 2px #000;
+  }
+}
+
+/* Adjust parent rule to account for added `main` region */
+@media (min-width: 1400px) {
+  .homepage-image-behind-issue + main .container-homepage-issue .homepage-issue-current {
+    margin-top: 4.5rem;
+  }
+}
