@@ -1,8 +1,8 @@
-/* #############################################
- * Custom styling for Western PA History journal
+/**
+ * @file styles/westernPAHistory.css
  *
- * cjw36 02 Feb 2026
- * ############################################# */
+ * @brief styles for Western PA History Theme
+ */
 
 /* Adjust parent rule to account for added `main` region */
 @media (min-width: 1200px) {
@@ -18,5 +18,12 @@
 @media (min-width: 1400px) {
   .homepage-image-behind-issue + main .container-homepage-issue .homepage-issue-current {
     margin-top: 4.5rem;
+  }
+}
+
+/* Adjust parent rule to account for added `main` region */
+@media (min-width: 1200px) {
+  .homepage-image-behind-issue + main .container-homepage-issue .homepage-issue-current {
+    margin-top: 3rem;
   }
 }
