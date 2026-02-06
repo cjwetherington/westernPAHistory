@@ -19,6 +19,10 @@ class WesternPAHistoryThemePlugin extends ThemePlugin {
 	public function init(): void {
 		$this->setParent('healthsciencesthemeplugin');
 		$this->addStyle('westernPAHistory', 'styles/westernPAHistory.css');
+		$this->removeOption('baseColour');
+
+		// Base is #CC0033
+		//$this->addLessVariable('@primary-text', '#CC0033');
 	}
 
 	/**
