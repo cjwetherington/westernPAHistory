@@ -17,6 +17,9 @@
 <main id="main-content" role="main">
     <div class="container page-issue">
 
+        {* Visually hidden h1 for accessibility *}
+        <h1 class="sr-only">{$issueIdentification|escape}</h1>
+
         {* Display a message if no current issue exists *}
         {if !$issue}
             <div class="page-header page-issue-header">
@@ -32,7 +35,10 @@
                 {include file="frontend/components/notification.tpl" messageKey="editor.issues.preview"}
             {/if}
 
-                <h1>{$issue->getIssueSeries()|escape}</h1>
+                {assign var="issueSeries" value=$issue->getIssueSeries()}
+                {if $issueSeries}
+                    <h1>{$issueSeries|escape}</h1>
+                {/if}
                 <div class="page-issue-date">
                     {translate key="plugins.themes.healthSciences.currentIssuePublished" date=$issue->getDatePublished()|date_format:$dateFormatLong}
                 </div>
