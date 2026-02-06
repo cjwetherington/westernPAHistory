@@ -82,16 +82,22 @@
                             <label for="dateFromYear">
                                 {translate key="search.dateFrom"}
                             </label>
+                            <label for="fromYear" class="sr-only">After Year</label>
+                            <label for="fromMonth" class="sr-only">After Month</label>
+                            <label for="fromDay" class="sr-only">After Day</label>
                             <div class="form-control-date">
-                                {html_select_date class="form-control" prefix="dateFrom" time=$dateFrom start_year=$yearStart end_year=$yearEnd year_empty="" month_empty="" day_empty="" field_order="YMD"}
+                                {html_select_date class="form-control" year_id="fromYear" month_id="fromMonth" day_id="fromDay" prefix="dateFrom" time=$dateFrom start_year=$yearStart end_year=$yearEnd year_empty="Year" month_empty="Month" day_empty="Day" field_order="YMD"}
                             </div>
                         </div>
                         <div class="form-group form-group-date-to">
                             <label for="dateToYear">
                                 {translate key="search.dateTo"}
                             </label>
+                            <label for="toYear" class="sr-only">Before Year</label>
+                            <label for="toMonth" class="sr-only">Before Month</label>
+                            <label for="toDay" class="sr-only">Before Day</label>
                             <div class="form-control-date">
-                                {html_select_date class="form-control" prefix="dateTo" time=$dateTo start_year=$yearStart end_year=$yearEnd year_empty="" month_empty="" day_empty="" field_order="YMD"}
+                                {html_select_date class="form-control" year_id="toYear" month_id="toMonth" day_id="toDay" prefix="dateTo" time=$dateTo start_year=$yearStart end_year=$yearEnd year_empty="Year" month_empty="Month" day_empty="Day" field_order="YMD"}
                             </div>
                         </div>
                         <div class="form-group form-group-buttons">
