@@ -17,7 +17,7 @@ class WesternPAHistoryThemePlugin extends ThemePlugin {
 	 * @return null
 	 */
 	public function init(): void {
-	
+
 		$this->setParent('healthsciencesthemeplugin');
 		$this->addStyle('westernPAHistory', 'styles/westernPAHistory.css');
 
@@ -30,19 +30,21 @@ class WesternPAHistoryThemePlugin extends ThemePlugin {
 
 	/**
 	 * Get the display name of this plugin
+	 *
 	 * @return string
 	 */
 	function getDisplayName(): string {
-	
+
 		return 'Western PA History';
 	}
 
 	/**
 	 * Get the description of this plugin
+	 *
 	 * @return string
 	 */
 	function getDescription(): string {
-	
+
 		return 'A child of the Health Sciences Theme providing custom layout and styling for the Western PA History journal.';
 	}
 }

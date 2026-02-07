@@ -1,5 +1,5 @@
 {**
- * templates/frontend/pages/userLostPassword.tpl
+ * @file templates/frontend/pages/userLostPassword.tpl
  *
  * Copyright (c) 2014-2020 Simon Fraser University
  * Copyright (c) 2000-2017 John Willinsky

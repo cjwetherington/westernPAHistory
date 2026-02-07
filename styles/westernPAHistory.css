@@ -4,6 +4,11 @@
  * @brief styles for Western PA History Theme
  */
 
+/* Underline links in content */
+div.page-content p a {
+  text-decoration: underline;
+}
+ 
 /* Adjust parent rule to account for added `main` region */
 @media (min-width: 1200px) {
   .homepage-image-behind-issue + main .container-homepage-issue .homepage-issue-current,

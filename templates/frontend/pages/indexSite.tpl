@@ -1,5 +1,5 @@
 {**
- * templates/frontend/pages/indexSite.tpl
+ * @file templates/frontend/pages/indexSite.tpl
  *
  * Copyright (c) 2014-2020 Simon Fraser University
  * Copyright (c) 2003-2020 John Willinsky
