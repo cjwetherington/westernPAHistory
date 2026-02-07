@@ -8,7 +8,13 @@
 div.page-content p a {
   text-decoration: underline;
 }
- 
+
+/* Don't trim journal description on home page */
+div.homepage-journal-description.long-text {
+    max-height: none;
+    overflow-y: visible;
+}
+
 /* Adjust parent rule to account for added `main` region */
 @media (min-width: 1200px) {
   .homepage-image-behind-issue + main .container-homepage-issue .homepage-issue-current,

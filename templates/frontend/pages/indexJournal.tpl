@@ -67,10 +67,6 @@
                                     <div class="homepage-journal-description long-text" id="homepageDescription">
                                         {$journalDescription|strip_unsafe_html}
                                     </div>
-                                    <div class="homepage-description-buttons hidden" id="homepageDescriptionButtons">
-                                        <a class="homepage-journal-description-more hidden" id="homepageDescriptionMore">{translate key="common.more"}</a>
-                                        <a class="homepage-journal-description-less hidden" id="homepageDescriptionLess">{translate key="common.less"}</a>
-                                    </div>
                                 {/if}
                                 {if $issueGalleys}
                                     <div class="homepage-issue-galleys">
