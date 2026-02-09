@@ -17,6 +17,11 @@
     width: 1px;
 }
 
+/* Do not reduce font size of the number of user notifications*/
+.badge {
+  font-size: 1em;
+}
+
 /* Hide article and issue publication dates */
 div.article-details-published,
 div.h6.homepage-issue-published,
