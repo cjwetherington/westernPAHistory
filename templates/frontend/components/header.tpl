@@ -45,6 +45,8 @@
 {include file="frontend/components/headerHead.tpl"}
 <body dir="{$currentLocaleLangDir|escape|default:"ltr"}">
 
+<a href="#main-content" class="sr-only sr-only-focusable">Skip to main content</a>
+
 {* Header *}
 <header class="main-header">
 	<div class="container">
