@@ -68,16 +68,6 @@
                                         {$journalDescription|strip_unsafe_html}
                                     </div>
                                 {/if}
-                                {if $issueGalleys}
-                                    <div class="homepage-issue-galleys">
-                                        <div class="h3">
-                                            {translate key="issue.fullIssue"}
-                                        </div>
-                                        {foreach from=$issueGalleys item=galley}
-                                            {include file="frontend/objects/galley_link.tpl" parent=$issue purchaseFee=$currentJournal->getSetting('purchaseIssueFee') purchaseCurrency=$currentJournal->getSetting('currency')}
-                                        {/foreach}
-                                    </div>
-                                {/if}
                             </div>
                         </div>
                     {/if}
@@ -109,6 +99,22 @@
         {/if}
 
         {if $issue}
+            {if $issueGalleys}
+                <div class="homepage-issue-galleys page-issue-description-wrapper">
+                {if $issue->getLocalizedTitle()}
+                    <div class="page-issue-description">
+                        <div class="h2">{$issue->getLocalizedTitle()}</div>
+                        {$issue->getLocalizedDescription()|strip_unsafe_html}
+                    </div>
+                {/if}
+                    <div class="h3">
+                        {translate key="issue.fullIssue"}
+                    </div>
+                    {foreach from=$issueGalleys item=galley}
+                        {include file="frontend/objects/galley_link.tpl" parent=$issue purchaseFee=$currentJournal->getSetting('purchaseIssueFee') purchaseCurrency=$currentJournal->getSetting('currency')}
+                    {/foreach}
+                </div>
+            {/if}
             <div class="row issue-wrapper{if $homepageImage && $issue->hasDescription()} issue-full-data{elseif $homepageImage && $issue->getLocalizedCoverImageUrl()} issue-image-cover{elseif $homepageImage} issue-only-image{/if}">
                 <div class="col-12 col-lg-9">
                     {include file="frontend/objects/issue_toc.tpl" sectionHeading="h3"}

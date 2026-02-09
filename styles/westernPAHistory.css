@@ -25,6 +25,11 @@ p.issue-summary-date {
     display: none;
 }
 
+/* Prevent homepage full issue description collision on mobile */
+div.homepage-issue-galleys.page-issue-description-wrapper {
+  margin-top: 48px;
+}
+
 /* Don't trim journal description on home page */
 div.homepage-journal-description.long-text {
     max-height: none;
@@ -42,6 +47,13 @@ div.page-content p a {
 }
 .search-results .alert-primary, .form-search .btn-primary {
   color: white;
+}
+
+/* Reduce whitespace above issue contents on homepage */
+@media (min-width: 1200px) {
+  .container-homepage-issue .issue-image-cover {
+    margin-top: 0;
+  }
 }
 
 /* Adjust parent media query to account for added `main` region */
