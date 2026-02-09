@@ -4,9 +4,25 @@
  * @brief styles for Western PA History Theme
  */
 
-/* Underline links in content */
-div.page-content p a {
-  text-decoration: underline;
+/* Page number read-out for screen readers */
+.article-summary-pages::before {
+    clip: rect(1px, 1px, 1px, 1px);
+    clip-path: inset(50%);
+    content: "page:";
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+/* Hide article and issue publication dates */
+div.article-details-published,
+div.h6.homepage-issue-published,
+div.page-issue-date,
+p.issue-summary-date {
+    display: none;
 }
 
 /* Don't trim journal description on home page */
@@ -15,7 +31,20 @@ div.homepage-journal-description.long-text {
     overflow-y: visible;
 }
 
-/* Adjust parent rule to account for added `main` region */
+/* Underline links in content */
+div.page-content p a {
+  text-decoration: underline;
+}
+
+/* Improve color contrast on search page */
+.search-filters h2, .search-filters label {
+  color: black;
+}
+.search-results .alert-primary, .form-search .btn-primary {
+  color: white;
+}
+
+/* Adjust parent media query to account for added `main` region */
 @media (min-width: 1200px) {
   .homepage-image-behind-issue + main .container-homepage-issue .homepage-issue-current,
   .homepage-image-behind-issue + main .container-homepage-issue .homepage-issue-identifier,
@@ -25,14 +54,14 @@ div.homepage-journal-description.long-text {
   }
 }
 
-/* Adjust parent rule to account for added `main` region */
+/* Adjust parent media query to account for added `main` region */
 @media (min-width: 1200px) {
   .homepage-image-behind-issue + main .container-homepage-issue .homepage-issue-current {
     margin-top: 3rem;
   }
 }
 
-/* Adjust parent rule to account for added `main` region */
+/* Adjust parent media query to account for added `main` region */
 @media (min-width: 1400px) {
   .homepage-image-behind-issue + main .container-homepage-issue .homepage-issue-current {
     margin-top: 4.5rem;
