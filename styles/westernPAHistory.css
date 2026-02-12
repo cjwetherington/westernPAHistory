@@ -4,30 +4,25 @@
  * @brief styles for Western PA History Theme
  */
 
-/* Page number read-out for screen readers */
-.article-summary-pages::before {
-    clip: rect(1px, 1px, 1px, 1px);
-    clip-path: inset(50%);
-    content: "page:";
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px;
-}
-
-/* Do not reduce font size of the number of user notifications*/
-.badge {
-  font-size: 1em;
-}
-
 /* Hide article and issue publication dates */
 div.article-details-published,
 div.h6.homepage-issue-published,
-div.page-issue-date,
-p.issue-summary-date {
-    display: none;
+div.page-issue-date, p.issue-summary-date {
+  display: none;
+}
+
+/* Page number read-out for screen readers */
+div.article-summary-pages::before,
+div.search-results .pagination a::before {
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  content: "page:";
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
 }
 
 /* Prevent homepage full issue description collision on mobile */
@@ -37,8 +32,8 @@ div.homepage-issue-galleys.page-issue-description-wrapper {
 
 /* Don't trim journal description on home page */
 div.homepage-journal-description.long-text {
-    max-height: none;
-    overflow-y: visible;
+  max-height: none;
+  overflow-y: visible;
 }
 
 /* Underline links in content */
@@ -46,12 +41,19 @@ div.page-content p a {
   text-decoration: underline;
 }
 
-/* Improve color contrast on search page */
-.search-filters h2, .search-filters label {
+/* Improve color contrast on search form */
+div.search-filters h2, .search-filters label {
   color: black;
 }
-.search-results .alert-primary, .form-search .btn-primary {
-  color: white;
+
+/* Increase space between pager items when wrapped */
+div.search-results .pagination a {
+  margin-bottom: 12px;
+}
+
+/* Do not reduce font size of the number of user notifications*/
+span.badge {
+  font-size: 1em;
 }
 
 /* Reduce whitespace above issue contents on homepage */
