@@ -51,7 +51,7 @@ div.search-results .pagination a {
   margin-bottom: 12px;
 }
 
-/* Do not reduce font size of the number of user notifications*/
+/* Don't reduce font size of user notifications count */
 span.badge {
   font-size: 1em;
 }

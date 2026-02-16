@@ -4,9 +4,9 @@
 1.0 for OJS 3.3
 
 ## Purpose
-A Health Sciences child theme plugin for the Western PA History journal.  It includes
-custom template and style overrides to ensure that the theme conforms to WCAG
-accessibility guidelines.
+A Health Sciences child theme plugin for the Western PA History journal. It includes
+custom template and style overrides to ensure that the theme conforms to accessibility
+guidelines.
 
 ## Dependencies
 Requires and extends OJS' Health Sciences theme.
