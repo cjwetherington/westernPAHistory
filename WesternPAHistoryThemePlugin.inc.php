@@ -26,6 +26,9 @@ class WesternPAHistoryThemePlugin extends ThemePlugin {
 		$this->modifyStyle('stylesheet', ['addLessVariables' => '@primary:#cc0033;']);
 		$this->modifyStyle('stylesheet', ['addLessVariables' => '@primary-text:#cc0033;']);
 		$this->modifyStyle('stylesheet', ['addLessVariables' => '@contrast:#ffffff;']);
+
+		$this->removeScript('main');
+		$this->addScript('wph', 'js/wph.js');
 	}
 
 	/**
