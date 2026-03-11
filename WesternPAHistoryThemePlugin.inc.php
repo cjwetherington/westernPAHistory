@@ -21,12 +21,14 @@ class WesternPAHistoryThemePlugin extends ThemePlugin {
 		$this->setParent('healthsciencesthemeplugin');
 		$this->addStyle('westernPAHistory', 'styles/westernPAHistory.css');
 
+		// Parent theme's color wheel does not ensure proper contrast.
+		// Remove it and set compliant values.
 		$this->removeOption('baseColour');
-
 		$this->modifyStyle('stylesheet', ['addLessVariables' => '@primary:#cc0033;']);
 		$this->modifyStyle('stylesheet', ['addLessVariables' => '@primary-text:#cc0033;']);
 		$this->modifyStyle('stylesheet', ['addLessVariables' => '@contrast:#ffffff;']);
 
+		// Remove "more/less" button logic from parent JavaScript and localize.
 		$this->removeScript('main');
 		$this->addScript('wph', 'js/wph.js');
 	}
