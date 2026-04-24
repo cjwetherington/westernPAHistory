@@ -78,7 +78,7 @@
             }
         {/if}
     </div>
-<main>
+</main>
 
 
 {include file="frontend/components/footer.tpl"}
