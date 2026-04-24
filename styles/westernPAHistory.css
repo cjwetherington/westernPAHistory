@@ -4,6 +4,12 @@
  * @brief styles for Western PA History Theme
  */
 
+/* Visually indicate tab focus on buttons */
+a.btn:focus, a.btn:focus-visible {
+  outline: 2px solid #0056b3;
+  outline-offset: 2px;
+}
+
 /* Hide article and issue publication dates */
 div.article-details-published,
 div.h6.homepage-issue-published,
