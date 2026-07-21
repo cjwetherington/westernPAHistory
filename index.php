@@ -10,6 +10,4 @@
 
 require_once('WesternPAHistoryThemePlugin.inc.php');
 
-return new WesternPAHistoryThemePlugin();
-
-?>
+return new APP\plugins\themes\westernPAHistory\WesternPAHistoryThemePlugin();

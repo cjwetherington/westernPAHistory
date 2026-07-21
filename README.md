@@ -1,7 +1,7 @@
 # Western PA History Child Theme Plugin
 
 ## Version
-1.0 for OJS 3.3
+2.0 for OJS 3.5
 
 ## Purpose
 A Health Sciences child theme plugin for the Western PA History journal. It includes

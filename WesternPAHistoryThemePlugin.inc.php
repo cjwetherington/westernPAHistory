@@ -7,7 +7,10 @@
  *
  * @brief HealthSciences theme extension for Western PA History journal
  */
-import('lib.pkp.classes.plugins.ThemePlugin');
+
+namespace APP\plugins\themes\westernPAHistory;
+
+use PKP\plugins\ThemePlugin;
 
 class WesternPAHistoryThemePlugin extends ThemePlugin {
 	/**
@@ -19,7 +22,7 @@ class WesternPAHistoryThemePlugin extends ThemePlugin {
 	public function init(): void {
 
 		$this->setParent('healthsciencesthemeplugin');
-		$this->addStyle('westernPAHistory', 'styles/westernPAHistory.css');
+		$this->addStyle('westernPAHistory', 'styles/westernPAHistory.less');
 
 		// Parent theme's color wheel does not ensure proper contrast.
 		// Remove it and set compliant values.
@@ -54,4 +57,6 @@ class WesternPAHistoryThemePlugin extends ThemePlugin {
 	}
 }
 
-?>
+if (!PKP_STRICT_MODE) {
+    class_alias('\APP\plugins\themes\westernPAHistory\WesternPAHistoryThemePlugin', '\WesternPAHistoryThemePlugin');
+}
