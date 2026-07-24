@@ -7,7 +7,7 @@
  *
  * @brief Display the page to view an article with all of it's details.
  *
- * @uses $article Article This article
+ * @uses $article Submission This article
  * @uses $publication Publication The publication being displayed
  * @uses $firstPublication Publication The first published version of this article
  * @uses $currentPublication Publication The most recently published version of this article
@@ -15,7 +15,7 @@
  * @uses $section Section The journal section this article is assigned to
  * @uses $journal Journal The journal currently being viewed.
  *}
-{include file="frontend/components/header.tpl" pageTitleTranslated=$article->getLocalizedTitle()|escape}
+{include file="frontend/components/header.tpl" pageTitleTranslated=$article->getCurrentPublication()->getLocalizedFullTitle(null, 'html')|strip_unsafe_html}
 
 <main id="main-content" role="main">
     <div class="container page-article">
