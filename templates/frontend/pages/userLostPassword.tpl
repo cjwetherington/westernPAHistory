@@ -34,10 +34,32 @@
 									<label for="email">
 										{translate key="user.login.registeredEmail"}
 										<span class="required" aria-hidden="true">*</span>
-										<span class="sr-only">{translate key="common.required"}</span>
+									<span class="visually-hidden">{translate key="common.required"}</span>
 									</label>
 									<input type="email" class="form-control" name="email" id="email" value="{$email|escape}" required>
 								</div>
+
+							{* recaptcha spam blocker *}
+							{if $recaptchaPublicKey}
+								<fieldset class="recaptcha_wrapper">
+									<div class="fields">
+										<div class="recaptcha">
+											<div class="g-recaptcha" data-sitekey="{$recaptchaPublicKey|escape}">
+											</div><label for="g-recaptcha-response" style="display:none;" hidden>Recaptcha response</label>
+										</div>
+									</div>
+								</fieldset>
+							{/if}
+
+							{* altcha spam blocker *}
+							{if $altchaEnabled}
+								<fieldset class="altcha_wrapper">
+									<div class="fields">
+										<altcha-widget challengejson='{$altchaChallenge|@json_encode}' floating></altcha-widget>
+									</div>
+								</fieldset>
+							{/if}
+
 								<div class="form-group form-group-buttons">
 									<button class="btn btn-primary" type="submit">
 										{translate key="user.login.resetPassword"}

@@ -38,7 +38,7 @@
             </div>
 
             {* make the entire block conditional if there aren't any additional issue data *}
-            {if  $issue->getLocalizedCoverImageUrl() || $issue->hasDescription() || $issueGalleys}
+		    {if $issue->getLocalizedCoverImageUrl() || $issue->hasDescription() || $issueGalleys}
                 <div class="row justify-content-center homepage-issue-header">
                     {if $issue->getLocalizedCoverImageUrl()}
                         <div class="col-lg-3">
@@ -68,6 +68,20 @@
                                     <div class="homepage-journal-description long-text" id="homepageDescription">
                                         {$journalDescription|strip_unsafe_html}
                                     </div>
+								<div class="homepage-description-buttons hidden" id="homepageDescriptionButtons">
+									<a class="homepage-journal-description-more hidden" id="homepageDescriptionMore">{translate key="common.more"}</a>
+									<a class="homepage-journal-description-less hidden" id="homepageDescriptionLess">{translate key="common.less"}</a>
+								</div>
+							{/if}
+							{if $issueGalleys}
+								<div class="homepage-issue-galleys">
+									<div class="h3">
+										{translate key="issue.fullIssue"}
+									</div>
+									{foreach from=$issueGalleys item=galley}
+										{include file="frontend/objects/galley_link.tpl" parent=$issue purchaseFee=$currentJournal->getSetting('purchaseIssueFee') purchaseCurrency=$currentJournal->getSetting('currency')}
+									{/foreach}
+								</div>
                                 {/if}
                             </div>
                         </div>
@@ -80,19 +94,19 @@
         {* display announcements before full issue *}
         {if $numAnnouncementsHomepage && $announcements|@count}
         <section class="row homepage-announcements">
-            <h2 class="sr-only">{translate key="announcement.announcementsHome"}</h2>
+		<h2 class="visually-hidden">{translate key="announcement.announcementsHome"}</h2>
             {foreach from=$announcements item=announcement}
                 <article class="col-md-4 homepage-announcement">
-                    <h3 class="homepage-announcement-title">{$announcement->getLocalizedTitle()|escape}</h3>
-                    <p>{$announcement->getLocalizedDescriptionShort()|strip_unsafe_html}
+				<h3 class="homepage-announcement-title">{$announcement->getLocalizedData('title')|escape}</h3>
+				<p>{$announcement->getLocalizedData('descriptionShort')|strip_unsafe_html}
                         <br>
-                        <a href="{url router=$smarty.const.ROUTE_PAGE page="announcement" op="view" path=$announcement->getId()}">
+					<a href="{url router=$smarty.const.ROUTE_PAGE page="announcement" op="view" path=$announcement->id}">
                             {capture name="more" assign="more"}{translate key="common.more"}{/capture}
                             {translate key="plugins.themes.healthSciences.more" text=$more}
                         </a>
                     </p>
                     <footer>
-                        <small class="homepage-announcement-date">{$announcement->getDatePosted()|date_format:$dateFormatLong}</small>
+					<small class="homepage-announcement-date">{$announcement->datePosted|date_format:$dateFormatLong}</small>
                     </footer>
                 </article>
             {/foreach}
@@ -100,22 +114,6 @@
         {/if}
 
         {if $issue}
-            {if $issueGalleys}
-                <div class="homepage-issue-galleys page-issue-description-wrapper">
-                {if $issue->getLocalizedTitle()}
-                    <div class="page-issue-description">
-                        <div class="h2">{$issue->getLocalizedTitle()}</div>
-                        {$issue->getLocalizedDescription()|strip_unsafe_html}
-                    </div>
-                {/if}
-                    <div class="h3">
-                        {translate key="issue.fullIssue"}
-                    </div>
-                    {foreach from=$issueGalleys item=galley}
-                        {include file="frontend/objects/galley_link.tpl" parent=$issue purchaseFee=$currentJournal->getSetting('purchaseIssueFee') purchaseCurrency=$currentJournal->getSetting('currency')}
-                    {/foreach}
-                </div>
-            {/if}
             <div class="row issue-wrapper{if $homepageImage && $issue->hasDescription()} issue-full-data{elseif $homepageImage && $issue->getLocalizedCoverImageUrl()} issue-image-cover{elseif $homepageImage} issue-only-image{/if}">
                 <div class="col-12 col-lg-9">
                     {include file="frontend/objects/issue_toc.tpl" sectionHeading="h3"}

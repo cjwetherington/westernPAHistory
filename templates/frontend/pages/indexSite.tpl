@@ -22,14 +22,14 @@
 					{/if}
 				</div>
 				<div class="site-journals">
-					<h2 class="sr-only">{translate key="journal.journals"}</h2>
+				<h2 class="visually-hidden">{translate key="journal.journals"}</h2>
 					{if !$journals|@count}
 						<p>{translate key="site.noJournals"}</p>
 					{else}
 						<div class="site-journals-list">
 							{foreach from=$journals item=journal}
 								{capture assign="url"}{url journal=$journal->getPath()}{/capture}
-								{assign var="thumb" value=$journal->getLocalizedSetting('journalThumbnail')}
+							{assign var="thumb" value=$journal->getLocalizedData('journalThumbnail')}
 								{assign var="description" value=$journal->getLocalizedDescription()}
 								<div class="site-journal">
 									{if $thumb}
