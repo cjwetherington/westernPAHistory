@@ -2,6 +2,7 @@
 
 ## Version
 2.0 for OJS 3.5
+Based on v1_1_3-2 of the Health Sciences theme.
 
 ## Purpose
 A Health Sciences child theme plugin for the Western PA History journal. It includes
