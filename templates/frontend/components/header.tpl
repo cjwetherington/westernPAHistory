@@ -46,13 +46,14 @@
 {include file="frontend/components/headerHead.tpl"}
 <body dir="{$currentLocaleLangDir|escape|default:"ltr"}">
 
-<a href="#main-content" class="sr-only sr-only-focusable">Skip to main content</a>
+{* Skipnav *}
+<a href="#main-content" class="visually-hidden .visually-hidden-focusable">Skip to main content</a>
 
 {* Header *}
 <header class="main-header">
 	<div class="container">
 
-		<{$siteNameTag} class="sr-only">{$pageTitleTranslated|escape}</{$siteNameTag}>
+		<{$siteNameTag} class="visually-hidden">{$pageTitleTranslated|escape}</{$siteNameTag}>
 
 	<div class="navbar-logo">
 		<a href="{$homeUrl}">{$brand}</a>
@@ -61,7 +62,7 @@
 	{* Main navigation *}
 	<nav class="navbar navbar-expand-lg navbar-light">
 		<a class="navbar-brand" href="{$homeUrl}">{$brand}</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar"
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-navbar"
 		        aria-controls="main-navbar" aria-expanded="false"
 		        aria-label="{translate key="plugins.themes.healthSciences.nav.toggle"}">
 			<span class="navbar-toggler-icon"></span>
