@@ -1,8 +1,8 @@
 {**
  * @file templates/frontend/objects/article_details.tpl
  *
- * Copyright (c) 2014-2020 Simon Fraser University
- * Copyright (c) 2003-2020 John Willinsky
+ * Copyright (c) 2014-2026 Simon Fraser University
+ * Copyright (c) 2003-2026 John Willinsky
  * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
  * @brief View of an Article which displays all details about the article.
@@ -14,12 +14,13 @@
  * Templates::Article::Main
  * Templates::Article::Details
  *
- * @uses $article Article This article
+ * @uses $article Submission This article
  * @uses $publication Publication The publication being displayed
  * @uses $firstPublication Publication The first published version of this article
  * @uses $currentPublication Publication The most recently published version of this article
  * @uses $issue Issue The issue this article is assigned to
  * @uses $section Section The journal section this article is assigned to
+ * @uses $categories Category The category this article is assigned to
  * @uses $primaryGalleys array List of article galleys that are not supplementary or dependent
  * @uses $supplementaryGalleys array List of article galleys that are supplementary
  * @uses $keywords array List of keywords assigned to this article
@@ -30,10 +31,21 @@
  * @uses $licenseUrl string URL to license. Only assigned if license should be
  *   included with published articles.
  * @uses $ccLicenseBadge string An image and text with details about the license
+ *
+ * @hook Templates::Article::Main []
+ * @hook Templates::Article::Details []
+ * @hook Templates::Article::Details::Reference []
  *}
 <div class="article-details">
 	<div class="page-header row">
 		<div class="col-lg article-meta-mobile">
+			{* Indicate if this is only a preview *}
+			{if $publication->getData('status') !== PKP\submission\PKPSubmission::STATUS_PUBLISHED}
+				<div class="alert alert-primary" role="alert">
+					{capture assign="submissionUrl"}{url page="dashboard" op="editorial" workflowSubmissionId=$article->getId()}{/capture}
+					{translate key="submission.viewingPreview" url=$submissionUrl}
+				</div>
+			{/if}
 			{* Notification that this is an old version *}
 			{if $currentPublication->getId() !== $publication->getId()}
 			<div class="alert alert-primary" role="alert">
@@ -46,21 +58,25 @@
 			{/if}
 
 			{* Title and issue details *}
+			{if $issue || $section}
 			<div class="article-details-issue-section small-screen">
-				{if $issue->getIssueSeries()}
-					<a href="{url page="issue" op="view" path=$issue->getBestIssueId()}">{$issue->getIssueSeries()|escape}</a>
-				{/if}
-				{if $section}, <span>{$section->getLocalizedTitle()|escape}</span>{/if}
-			</div>
+					{if $issue}
+						<a href="{url page="issue" op="view" path=$issue->getBestIssueId()}">{$issue->getIssueSeries()|escape}</a>{if $section}{translate key="common.commaListSeparator"}{/if}
+					{/if}
+					{if $section}
+						<span>{$section->getLocalizedTitle()|escape}</span>
+					{/if}
+				</div>
+			{/if}
 
-			<div class="article-details-issue-identifier large-screen">
-				{if $issue->getIssueSeries()}
-        	<a href="{url page="issue" op="view" path=$issue->getBestIssueId()}">{$issue->getIssueSeries()|escape}</a>
-		    {/if}
+			{if $issue}
+				<div class="article-details-issue-identifier large-screen">
+					<a href="{url page="issue" op="view" path=$issue->getBestIssueId()}">{$issue->getIssueSeries()|escape}</a>
 			</div>
+		    {/if}
 
 			<h1 class="article-details-fulltitle">
-				{$publication->getLocalizedFullTitle()|escape}
+				{$publication->getLocalizedFullTitle(null, 'html')|strip_unsafe_html}
 			</h1>
 
 			{if $section}
@@ -100,21 +116,21 @@
 					{foreach from=$publication->getData('authors') item=authorString key=authorStringKey}
 						{strip}
 							<li>
-								{if $authorString->getLocalizedAffiliation() or $authorString->getLocalizedBiography()}
+								{if count($authorString->getAffiliations()) > 0 or $authorString->getLocalizedBiography() or $authorString->getData('orcid')}
 								<a class="author-string-href" href="#author-{$authorStringKey+1}">
 									<span>{$authorString->getFullName()|escape}</span>
 									<sup class="author-symbol author-plus">&plus;</sup>
-									<sup class="author-symbol author-minus hide">&minus;</sup>
+									<sup class="author-symbol author-minus hidden">&minus;</sup>
 								</a>
 								{else}
 								<span>{$authorString->getFullName()|escape}</span>
 								{/if}
-								{if $authorString->getOrcid()}
-									<a class="orcidImage" href="{$authorString->getOrcid()|escape}">
-										{if $orcidIcon}
+								{if $authorString->getData('orcid')}
+									<a class="orcidImage" href="{$authorString->getData('orcid')|escape}">
+										{if $authorString->hasVerifiedOrcid()}
 											{$orcidIcon}
 										{else}
-											<img src="{$baseUrl}/{$orcidImage}">
+											{$orcidUnauthenticatedIcon}
 										{/if}
 									</a>
 								{/if}
@@ -132,24 +148,30 @@
 							<div class="article-details-author-name small-screen">
 								{$author->getFullName()|escape}
 							</div>
-							{if $author->getLocalizedAffiliation()}
+							{if count($author->getAffiliations()) > 0}
+								{foreach name="affiliations" from=$author->getAffiliations() item="affiliation"}
 								<div class="article-details-author-affiliation">
-									{$author->getLocalizedAffiliation()|escape}
-									{if $author->getData('rorId')}
-										<a class="rorImage" href="{$author->getData('rorId')|escape}">{$rorIdIcon}</a>
+										{$affiliation->getLocalizedName()|escape}
+										{if $affiliation->getRor()}
+											<a class="rorImage" href="{$affiliation->getRor()|escape}">{$rorIdIcon}</a>
 									{/if}
 								</div>
+								{/foreach}
 							{/if}
-							{if $author->getOrcid()}
+							{if $author->getData('orcid')}
 								<div class="article-details-author-orcid">
-									<a href="{$author->getOrcid()|escape}" target="_blank">
+									<a href="{$author->getData('orcid')|escape}" target="_blank">
+										{if $author->hasVerifiedOrcid()}
 										{$orcidIcon}
-										{$author->getOrcid()|escape}
+										{else}
+											{$orcidUnauthenticatedIcon}
+										{/if}
+										{$author->getOrcidDisplayValue()|escape}
 									</a>
 								</div>
 							{/if}
 							{if $author->getLocalizedBiography()}
-								<button type="button" class="article-details-bio-toggle" data-toggle="modal" data-target="#authorBiographyModal{$authorKey+1}">
+								<button type="button" class="article-details-bio-toggle" data-bs-toggle="modal" data-bs-target="#authorBiographyModal{$authorKey+1}">
 									{translate key="plugins.themes.healthSciences.article.authorBio"}
 								</button>
 								{* Store author biographies to print as modals in the footer *}
@@ -168,7 +190,7 @@
 													<div class="modal-title" id="authorBiographyModalTitle{$authorKey+1}">
 														{$author->getFullName()|escape}
 													</div>
-													<button type="button" class="close" data-dismiss="modal" aria-label="{translate|escape key="common.close"}">
+													<button type="button" class="close" data-bs-dismiss="modal" aria-label="{translate|escape key="common.close"}">
 														<span aria-hidden="true">&times;</span>
 													</button>
 												</div>
@@ -277,7 +299,7 @@
 						</h2>
 						<div class="article-details-keywords-value">
 							{foreach name=keywords from=$publication->getLocalizedData('keywords') item=keyword}
-								<span>{$keyword|escape}</span>{if !$smarty.foreach.keywords.last}<br>{/if}
+								<span>{$keyword.name|escape}</span>{if !$smarty.foreach.keywords.last}<br>{/if}
 							{/foreach}
 						</div>
 					</div>
@@ -296,43 +318,16 @@
 					</div>
 				{/if}
 
-				{* How to cite *}
-				{if $citation}
-					<div class="article-details-block article-details-how-to-cite">
+				{* Data Availability Statement *}
+				{assign 'dataAvailability' $publication->getLocalizedData('dataAvailability')}
+				{if $dataAvailability}
+					<div class="article-details-block article-details-dataAvailability">
 						<h2 class="article-details-heading">
-							{translate key="submission.howToCite"}
+							{translate key="submission.dataAvailability"}
 						</h2>
-						<div id="citationOutput" class="article-details-how-to-cite-citation" role="region" aria-live="polite">
-							{$citation}
-						</div>
-						<div class="dropdown">
-							<button class="btn dropdown-toggle" type="button" id="cslCitationFormatsButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-csl-dropdown="true">
-								{translate key="submission.howToCite.citationFormats"}
-							</button>
-							<div class="dropdown-menu" aria-labelledby="cslCitationFormatsButton">
-								{foreach from=$citationStyles item="citationStyle"}
-									<a
-										class="dropdown-item"
-										aria-controls="citationOutput"
-										href="{url page="citationstylelanguage" op="get" path=$citationStyle.id params=$citationArgs}"
-										data-load-citation
-										data-json-href="{url page="citationstylelanguage" op="get" path=$citationStyle.id params=$citationArgsJson}"
-									>
-										{$citationStyle.title|escape}
-									</a>
-								{/foreach}
-								{if count($citationDownloads)}
-									<h3 class="dropdown-header">
-										{translate key="submission.howToCite.downloadCitation"}
-									</h3>
-									{foreach from=$citationDownloads item="citationDownload"}
-										<a class="dropdown-item" href="{url page="citationstylelanguage" op="download" path=$citationDownload.id params=$citationArgs}">
-											{$citationDownload.title|escape}
-										</a>
-									{/foreach}
-								{/if}
-							</div>
-						</div>
+						<p>
+							{$dataAvailability|strip_unsafe_html}
+						</p>
 					</div>
 				{/if}
 
@@ -401,13 +396,13 @@
 				{/if}
 
 				{* References *}
-				{if $parsedCitations || $publication->getData('citationsRaw')}
+				{if count($parsedCitations) || (string) $publication->getData('citationsRaw')}
 					<div class="article-details-block article-details-references">
 						<h2 class="article-details-heading">
 							{translate key="submission.citations"}
 						</h2>
 						<div class="article-details-references-value">
-							{if $parsedCitations}
+							{if count($parsedCitations)}
 								{foreach from=$parsedCitations item=parsedCitation}
 									<p>{$parsedCitation->getCitationWithLinks()|strip_unsafe_html}</p>
 								{/foreach}
@@ -449,6 +444,22 @@
 				{/if}
 
 				{call_hook name="Templates::Article::Main"}
+
+				{* Usage statistics chart*}
+				{if $activeTheme->getOption('displayStats') != 'none'}
+					{$activeTheme->displayUsageStatsGraph($article->getId())}
+					<section class="item downloads_chart">
+						<h2 class="label">
+							{translate key="plugins.themes.healthSciences.displayStats.downloads"}
+						</h2>
+						<div class="value">
+							<canvas class="usageStatsGraph" data-object-type="Submission" data-object-id="{$article->getId()|escape}"></canvas>
+							<div class="usageStatsUnavailable" data-object-type="Submission" data-object-id="{$article->getId()|escape}">
+								{translate key="plugins.themes.healthSciences.displayStats.noStats"}
+							</div>
+						</div>
+					</section>
+				{/if}
 
 			</div>
 		</div>

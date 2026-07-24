@@ -16,6 +16,7 @@
 	{assign var="showTitle" value=false}
 {/if}
 
+
 {capture assign="issueTitle"}
 	{if $issue->getIssueSeries()}
 		{$issue->getIssueSeries()|escape}

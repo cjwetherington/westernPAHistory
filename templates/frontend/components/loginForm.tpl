@@ -1,11 +1,11 @@
 {**
- * @file templates/frontend/components/registrationForm.tpl
+ * @file templates/frontend/components/loginForm.tpl
  *
  * Copyright (c) 2014-2020 Simon Fraser University
  * Copyright (c) 2003-2020 John Willinsky
  * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
- * @brief Display the basic registration form fields
+ * @brief Display the basic login form fields
  *
  * @uses $loginUrl string URL to post the login request
  * @uses $source string Optional URL to redirect to after successful login
@@ -18,22 +18,26 @@
 	{assign var=usernameId value="username"}
 	{assign var=passwordId value="password"}
 	{assign var=rememberId value="remember"}
+	{assign var=formId value="login"}
 {elseif $formType && $formType === "loginModal"}
 	{assign var=usernameId value="usernameModal"}
 	{assign var=passwordId value="passwordModal"}
 	{assign var=rememberId value="rememberModal"}
+	{assign var=formId value="loginModalForm"}
+{else}
+	{assign var=formId value="login"}
 {/if}
-<form class="form-login" method="post" action="{$loginUrl}">
+<form class="form-login" id="{$formId}" method="post" action="{$loginUrl}">
 	{csrf}
 	<input type="hidden" name="source" value="{$source|strip_unsafe_html|escape}"/>
 
 	<fieldset>
-		<legend class="sr-only">{translate key="user.login"}</legend>
+		<legend class="visually-hidden">{translate key="user.login"}</legend>
 		<div class="form-group form-group-username">
 			<label for="{$usernameId}">
 				{translate key="user.username"}
 				<span class="required" aria-hidden="true">*</span>
-				<span class="sr-only">
+				<span class="visually-hidden">
 					{translate key="common.required"}
 				</span>
 			</label>
@@ -44,7 +48,7 @@
 			<label for="{$passwordId}">
 				{translate key="user.password"}
 				<span class="required" aria-hidden="true">*</span>
-				<span class="sr-only">
+				<span class="visually-hidden">
 					{translate key="common.required"}
 				</span>
 			</label>
@@ -73,6 +77,30 @@
 				</div>
 			</div>
 		</div>
+
+		{* recaptcha spam blocker *}
+		{if $recaptchaPublicKey}
+			<div class="form-group">
+				<fieldset class="recaptcha_wrapper">
+					<div class="fields">
+						<div class="recaptcha">
+							<div class="g-recaptcha" data-sitekey="{$recaptchaPublicKey|escape}">
+							</div><label for="g-recaptcha-response" style="display:none;" hidden>Recaptcha response</label>
+						</div>
+					</div>
+				</fieldset>
+			</div>
+		{/if}
+
+		{* altcha spam blocker *}
+		{if $altchaEnabled}
+			<fieldset class="altcha_wrapper">
+				<div class="fields">
+					<altcha-widget challengejson='{$altchaChallenge|@json_encode}' floating></altcha-widget>
+				</div>
+			</fieldset>
+		{/if}
+
 		<div class="form-group form-group-buttons">
 			<button class="btn btn-primary" type="submit">
 				{translate key="user.login"}
