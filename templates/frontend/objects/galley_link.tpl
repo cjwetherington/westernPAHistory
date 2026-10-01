@@ -57,7 +57,7 @@
 {/if}
 
 {* Don't be frightened. This is just a link *}
-<a class="btn{if !$isSupplementary} btn-primary{/if}" href="{url page=$page op="view" path=$path}" aria-label="View {$galley->getGalleyLabel()} galley for '{$parent->getLocalizedTitle()|escape}'">
+<a class="btn{if !$isSupplementary} btn-primary{/if}" href="{url page=$page op="view" path=$path}" aria-label="View {$galley->getGalleyLabel()} galley{if $publication} for '{$publication->getLocalizedTitle()|escape}'{/if}">
 
 	{* Add some screen reader text to indicate if a galley is restricted *}
 	{if $restricted}
