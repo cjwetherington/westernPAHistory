@@ -1,7 +1,7 @@
 # Western PA History Child Theme Plugin
 
 ## Version
-2.0 for OJS 3.5
+2.0.0.1 for OJS 3.5
 Based on v1_1_3-2 of the Health Sciences theme.
 
 ## Purpose
