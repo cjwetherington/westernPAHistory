@@ -243,9 +243,9 @@
 					{/foreach}
 				{/capture}
 
-        		{* Display other versions *}
-        		{if $publication->getData('datePublished')}
-          			{if count($article->getPublishedPublications()) > 1}
+				{* Display other versions *}
+				{if $publication->getData('datePublished')}
+				{if count($article->getPublishedPublications()) > 1}
 						<div class="article-details-block">
 							<h2 class="article-details-heading">
 								{translate key="submission.versions"}
@@ -265,7 +265,7 @@
 							{/foreach}
 							</ul>
 						</div>
-          			{/if}
+					{/if}
 				{/if}
 
 				{* Article Galleys (sidebar -- only visible on small devices) *}

@@ -24,65 +24,65 @@
 {include file="frontend/components/header.tpl" pageTitleTranslated=$pageTitle}
 
 <main id="main-content" role="main">
-    <div class="container page-archives">
+	<div class="container page-archives">
 
-        <div class="page-header page-archives-header">
-            <h1>{$pageTitle|escape}</h1>
-        </div>
+		<div class="page-header page-archives-header">
+			<h1>{$pageTitle|escape}</h1>
+		</div>
 
-        {* No issues have been published *}
-        {if empty($issues)}
-            <div class="page-header page-issue-header">
-                {include file="frontend/components/notification.tpl" messageKey="current.noCurrentIssueDesc"}
-            </div>
+		{* No issues have been published *}
+		{if empty($issues)}
+			<div class="page-header page-issue-header">
+				{include file="frontend/components/notification.tpl" messageKey="current.noCurrentIssueDesc"}
+			</div>
 
-        {* List issues *}
-        {else}
+		{* List issues *}
+		{else}
 		{foreach $issues as $issue}
 			{* @iteration starts from 1 *}
 			{if ($issue@iteration) % 4 == 1}
-                    <div class="row justify-content-around">
-                {/if}
-                <div class="col-md-3 col-lg-2">
-                    {include file="frontend/objects/issue_summary.tpl" heading="h2"}
-                </div>
+					<div class="row justify-content-around">
+				{/if}
+				<div class="col-md-3 col-lg-2">
+					{include file="frontend/objects/issue_summary.tpl" heading="h2"}
+				</div>
 			{* Insert empty columns to keep columns aligned even on the last row *}
 			{if $issue@last && ($issue@iteration) % 4 != 0}
 				{assign var="emptyCols" value=4 - ($issue@iteration) % 4}
 				{section name="empty" start=0 loop=$emptyCols}
 					<div class="col-md-3 col-lg-2"></div>
 				{/section}
-    		{/if}
+			{/if}
 			{* Either end of row or last issue *}
 			{if ($issue@iteration) % 4 == 0 || $issue@last}
 				</div>
-            {/if}
+			{/if}
 
 		{/foreach}
 
-            {* Pagination *}
-            {capture assign="prevUrl"}
-                {if $prevPage > 1}
-                    {url router=$smarty.const.ROUTE_PAGE page="issue" op="archive" path=$prevPage}
-                {elseif $prevPage === 1}
-                    {url router=$smarty.const.ROUTE_PAGE page="issue" op="archive"}
-                {/if}
-            {/capture}
-            {capture assign="nextUrl"}
-                {if $nextPage}
-                    {url router=$smarty.const.ROUTE_PAGE page="issue" op="archive" path=$nextPage}
-                {/if}
-            {/capture}
-            {include
-                file="frontend/components/pagination.tpl"
-                prevUrl=$prevUrl|trim
-                nextUrl=$nextUrl|trim
-                showingStart=$showingStart
-                showingEnd=$showingEnd
-                total=$total
-            }
-        {/if}
-    </div>
+			{* Pagination *}
+			{capture assign="prevUrl"}
+				{if $prevPage > 1}
+					{url router=$smarty.const.ROUTE_PAGE page="issue" op="archive" path=$prevPage}
+				{elseif $prevPage === 1}
+					{url router=$smarty.const.ROUTE_PAGE page="issue" op="archive"}
+				{/if}
+			{/capture}
+			{capture assign="nextUrl"}
+				{if $nextPage}
+					{url router=$smarty.const.ROUTE_PAGE page="issue" op="archive" path=$nextPage}
+				{/if}
+			{/capture}
+			{include
+				file="frontend/components/pagination.tpl"
+				prevUrl=$prevUrl|trim
+				nextUrl=$nextUrl|trim
+				showingStart=$showingStart
+				showingEnd=$showingEnd
+				total=$total
+			}
+		{/if}
+	</div>
 </main>
 
 

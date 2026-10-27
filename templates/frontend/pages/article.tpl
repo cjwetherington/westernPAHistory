@@ -18,9 +18,9 @@
 {include file="frontend/components/header.tpl" pageTitleTranslated=$article->getCurrentPublication()->getLocalizedFullTitle(null, 'html')|strip_unsafe_html}
 
 <main id="main-content" role="main">
-    <div class="container page-article">
-        {include file="frontend/objects/article_details.tpl"}
-    </div><!-- .page -->
+	<div class="container page-article">
+		{include file="frontend/objects/article_details.tpl"}
+	</div><!-- .page -->
 </main>
 
 {include file="frontend/components/footer.tpl"}

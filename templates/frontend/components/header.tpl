@@ -19,7 +19,7 @@
 {/capture}
 
 {* Logo or site title. Only use <h1> heading on the homepage.
-	 Otherwise that should go to the page title. *}
+	Otherwise that should go to the page title. *}
 {if $requestedOp == 'index'}
 	{assign var="siteNameTag" value="h1"}
 {else}
@@ -30,9 +30,9 @@
 {capture assign="brand"}{strip}
 	{if $displayPageHeaderLogo}
 		<img src="{$publicFilesDir}/{$displayPageHeaderLogo.uploadName|escape:"url"}"
-		     {if $displayPageHeaderLogo.altText != ''}alt="{$displayPageHeaderLogo.altText|escape}"
-		     {else}alt="{translate key="common.pageHeaderLogo.altText"}"{/if}
-				 class="img-fluid">
+			{if $displayPageHeaderLogo.altText != ''}alt="{$displayPageHeaderLogo.altText|escape}"
+			{else}alt="{translate key="common.pageHeaderLogo.altText"}"{/if}
+				class="img-fluid">
 	{elseif $displayPageHeaderTitle}
 		<span class="navbar-logo-text">{$displayPageHeaderTitle|escape}</span>
 	{else}
@@ -63,8 +63,8 @@
 	<nav class="navbar navbar-expand-lg navbar-light">
 		<a class="navbar-brand" href="{$homeUrl}">{$brand}</a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-navbar"
-		        aria-controls="main-navbar" aria-expanded="false"
-		        aria-label="{translate key="plugins.themes.healthSciences.nav.toggle"}">
+				aria-controls="main-navbar" aria-expanded="false"
+				aria-label="{translate key="plugins.themes.healthSciences.nav.toggle"}">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 
@@ -77,17 +77,17 @@
 				{$primaryMenu}
 			{/if}
 			{* user menu *}
-            {if $isUserLoggedIn}
-                {load_menu name="user" id="primaryNav-userNav" ulClass="navbar-nav" liClass="nav-item"}
-            {/if}
+			{if $isUserLoggedIn}
+				{load_menu name="user" id="primaryNav-userNav" ulClass="navbar-nav" liClass="nav-item"}
+			{/if}
 			{include file="frontend/components/languageSwitcher.tpl" id="languageSmallNav"}
 		</div>
 	</nav>
 
 	{* Repeat the userNav for positioning on large screens *}
 	{if $isUserLoggedIn}
-        {load_menu name="user" id="userNav" ulClass="navbar-nav" liClass="nav-item"}
-    {/if}
+		{load_menu name="user" id="userNav" ulClass="navbar-nav" liClass="nav-item"}
+	{/if}
 
 	{* Language switcher *}
 	{include file="frontend/components/languageSwitcher.tpl" id="languageLargeNav"}

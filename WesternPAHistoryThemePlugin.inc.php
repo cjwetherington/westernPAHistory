@@ -16,8 +16,6 @@ class WesternPAHistoryThemePlugin extends ThemePlugin {
 	/**
 	 * Initialize the theme's styles, scripts and hooks. This is only run for
 	 * the currently active theme.
-	 *
-	 * @return null
 	 */
 	public function init(): void {
 
@@ -37,9 +35,7 @@ class WesternPAHistoryThemePlugin extends ThemePlugin {
 	}
 
 	/**
-	 * Get the display name of this plugin
-	 *
-	 * @return string
+	 * Get the display name of this plugin.
 	 */
 	function getDisplayName(): string {
 
@@ -47,9 +43,7 @@ class WesternPAHistoryThemePlugin extends ThemePlugin {
 	}
 
 	/**
-	 * Get the description of this plugin
-	 *
-	 * @return string
+	 * Get the description of this plugin.
 	 */
 	function getDescription(): string {
 
@@ -58,5 +52,5 @@ class WesternPAHistoryThemePlugin extends ThemePlugin {
 }
 
 if (!PKP_STRICT_MODE) {
-    class_alias('\APP\plugins\themes\westernPAHistory\WesternPAHistoryThemePlugin', '\WesternPAHistoryThemePlugin');
+	class_alias('\APP\plugins\themes\westernPAHistory\WesternPAHistoryThemePlugin', '\WesternPAHistoryThemePlugin');
 }
